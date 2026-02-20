@@ -103,43 +103,43 @@ CI/CD-pipelinen er implementert i `.github/workflows/ci.yml` med to jobs:
 
 ### Hvorfor blir DevOps viktigere når AI gjør oss mer produktive?
 
-AI-verktøy som GitHub Copilot, ChatGPT og Claude har fundamentalt endret hvordan 
-programvare utvikles. Det som tidligere tok dager kan nå gjøres på timer. En utvikler 
-kan be en AI om å generere en hel Spring Boot-applikasjon med REST-endepunkter, 
-modeller og tjenester, og få fungerende kode tilbake på minutter. Dette prosjektet er 
-selv et godt eksempel quiz-applikasjonen ble opprinnelig utviklet ved hjelp av 
-AI-verktøy.
+AI-verktøy som GitHub Copilot, ChatGPT og Claude har endret måten vi skriver kode på. 
+Det som tidligere tok en hel dag kan nå gjøres på under en time. Du kan beskrive hva 
+du vil ha, og få tilbake fungerende kode nesten umiddelbart. Dette prosjektet er selv 
+et godt eksempel quiz-applikasjonen ble laget ved hjelp av AI, og det gikk raskt.
 
-Men høy utviklingshastighet uten solide prosesser rundt skaper nye og større risikoer. 
-AI-verktøy er svært gode til å generere kode som ser riktig ut, men de introduserer 
-også feil og sikkerhetsproblemer i samme tempo. I dette prosjektet avdekket Trivy 17 
-sårbarheter i dependencies inkludert kritiske RCE-sårbarheter i Tomcat og Spring Boot. 
-Dette er akkurat den typen problemer som er enkle å overse når man fokuserer på å få 
-koden til å fungere raskt.
+Men her er problemet: når man kan lage kode så fort, er det lett å glemme å tenke på 
+hva som skjer etterpå. Koden må jo faktisk fungere over tid, og det er der det kan gå 
+galt. AI er flink til å skrive kode som ser riktig ut, men den sjekker ikke alltid om 
+avhengighetene den bruker har kjente sikkerhetsproblemer. I dette prosjektet fant 
+Trivy hele 17 slike problemer i bibliotekene applikasjonen bruker blant annet 
+alvorlige feil i Tomcat og Spring Boot som i verste fall kunne la uvedkommende ta 
+kontroll over serveren. Ingen hadde nødvendigvis oppdaget dette uten automatisk 
+skanning.
 
-Dette illustrerer et viktig poeng: når utviklingshastigheten øker, øker også behovet 
-for automatiserte kvalitetsporter. Uten CI/CD-pipeline og automatisk sikkerhetsskanning 
-ville disse sårbarhetene potensielt havnet i produksjon uten at noen oppdaget dem. 
-Med GitHub Actions og Trivy stopper pipelinen automatisk og varsler teamet før koden 
-kan merges til main.
+Det er nettopp her DevOps kommer inn. Når vi satte opp GitHub Actions til å kjøre 
+tester og sikkerhetsskanning automatisk hver gang noen prøver å legge til ny kode, 
+fikk vi en automatisk sikkerhetsnet. Pipelinen stopper og gir beskjed hvis noe er galt før koden når produksjon.
+Det betyr at teamet kan jobbe raskt uten å være redde for at de slipper gjennom noe farlig.
 
-Branch-strategi og pull request-prosess blir også viktigere når teamet vokser og 
-bruker AI. Når alle kan generere kode raskt, er det lett å havne i en situasjon hvor 
-mange endringer skjer parallelt og ingen har full oversikt. En strukturert branch-strategi 
-med feature-branches og obligatorisk code review sikrer at endringer blir gjennomgått 
-av minst ett annet par øyne før de når produksjon. Dette fanger opp ikke bare tekniske 
-feil, men også arkitekturproblemer og AI-genererte antipatterns som hardkodede 
-credentials noe vi selv opplevde i dette prosjektet da AWS-nøkler nesten havnet i 
-et public repository.
+Arbeidsflyt og samarbeid blir også mye viktigere når teamet vokser og alle bruker AI. 
+Tenk deg at fem utviklere alle genererer kode raskt og prøver å legge det inn i samme 
+prosjekt uten noen felles regler. Det blir fort kaos. Med en tydelig branch-strategi 
+og krav om at noen andre ser over koden din før den merges, holder man styr på hvem 
+som gjør hva og man fanger opp feil som man kanskje ikke ser selv. Vi opplevde 
+dette på kroppen i dette prosjektet da AWS-nøkler nesten havnet i et offentlig repo. 
+En god prosess rundt code review og branch protection hadde stoppet det.
 
-Docker og containerisering blir en viktig stabiliserende faktor i et AI-akselerert team. 
-Når kode genereres raskt av ulike utviklere med ulike miljøer, sikrer en god Dockerfile 
-at applikasjonen oppfører seg likt overalt. Multi-stage builds reduserer image-størrelsen 
-fra ~700MB til 97MB, noe som direkte påvirker deploy-hastighet og kostnad i produksjon.
+Docker er et annet eksempel på hvordan struktur hjelper når tempoet er høyt. Når 
+kode lages raskt av flere personer med ulike datamaskiner og oppsett, kan ting fort 
+fungere på én maskin men ikke på en annen. En gjennomtenkt Dockerfile løser det 
+problemet ved å pakke applikasjonen på en forutsigbar måte. I dette prosjektet 
+krympet vi image-størrelsen fra rundt 700MB til bare 97MB ved å bruke en to-stegs 
+byggeprosess noe som gjør det raskere og billigere å kjøre i produksjon.
 
-Paradoksalt nok er konklusjonen at jo raskere AI gjør oss som utviklere, jo viktigere 
-blir de "langsomme" prosessene rundt code review, automatisk testing, 
-sikkerhetsskanning og strukturert branching. AI senker terskelen for å skrive kode, 
-men hever ikke automatisk kvaliteten på prosessene rundt. DevOps fyller dette gapet 
-ved å bygge kvalitet og sikkerhet inn i selve utviklingsprosessen, slik at teamet kan 
-opprettholde høy fart uten å gå på bekostning av stabilitet og sikkerhet i produksjon.
+Konklusjonen er egentlig litt paradoksal: jo raskere AI hjelper oss å skrive kode, 
+jo viktigere blir de tingene som bremser oss litt ned som testing, code review og 
+automatisert sikkerhetsskanning. AI senker terskelen for å lage noe, men det betyr 
+ikke at kvaliteten kommer gratis. DevOps handler om å bygge gode vaner og 
+automatiserte sjekker inn i hverdagen, slik at teamet kan holde høy fart over tid 
+uten at det går på bekostning av stabilitet og sikkerhet.
