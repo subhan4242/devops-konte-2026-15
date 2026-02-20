@@ -32,11 +32,11 @@ Automatiseringen gjør at teamet ikke er avhengig av manuelle sjekker, og alle e
 ### Skjermbilder og konfigurasjon
 
 
-![alt text](image.png)
+![alt text](images/image.png)
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 
 
@@ -62,8 +62,8 @@ Den nye Dockerfile bruker multi-stage build:
 | CMD/ENTRYPOINT | Mangler | Ja |
 
 ### Skjermbilder
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](images/image-4.png)
+![alt text](images/image-5.png)
 ---
 
 ## Oppgave 3: GitHub Actions pipeline
@@ -92,10 +92,10 @@ CI/CD-pipelinen er implementert i `.github/workflows/ci.yml` med to jobs:
 - Pull Request med Trivy-scanning: [lim inn URL til PR #3]
 
 ### Skjermbilder
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](images/image-6.png)
+![alt text](images/image-7.png)
+![alt text](images/image-8.png)
+![alt text](images/image-9.png)
 
 
 
