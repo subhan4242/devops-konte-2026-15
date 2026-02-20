@@ -88,8 +88,8 @@ CI/CD-pipelinen er implementert i `.github/workflows/ci.yml` med to jobs:
 
 ### Lenker
 
-- Vellykket workflow-kjøring på main (med Docker push): [lim inn URL fra Actions-fanen]
-- Pull Request med Trivy-scanning: [lim inn URL til PR #3]
+- Vellykket workflow-kjøring på main (med Docker push):(https://github.com/subhan4242/devops-konte-2026-15/actions/runs/22211247372)
+- Pull Request med Trivy-scanning:(https://github.com/subhan4242/devops-konte-2026-15/pull/3)
 
 ### Skjermbilder
 ![alt text](images/image-6.png)
